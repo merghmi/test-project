@@ -1,0 +1,56 @@
+<h2>Profile</h2>
+<form *ngIf="currentEmp">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="name">Name</label>
+      <input type="text" class="form-control" name="name" id="name" [ngModel]="currentEmp.ENAME">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="job">Job</label>
+      <input type="text" class="form-control" name="job" id="job" [ngModel]="currentEmp.JOB">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="hireDate">Hire date</label>
+      <input type="text" class="form-control" name="hireDate" id="hireDate" [ngModel]="currentEmp.HIREDATE">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="salary">Salary</label>
+      <input type="text" class="form-control" name="salary" id="salary" [ngModel]="currentEmp.SAL">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="department">Department</label>
+      <input type="text" class="form-control" name="department" id="department" [ngModel]="currentEmp.dept.DNAME">
+    </div>
+    <div class="form-group col-md-6" *ngIf="currentEmp.MGR">
+      <label for="manager">Manager</label>
+      <input type="text" class="form-control" name="manager" id="manager" [ngModel]="currentEmp.MGR.ENAME">
+    </div>
+  </div>
+
+</form>
+<ng-container *ngIf="currentEmp && currentEmp.child_emp.length>0">
+<h2>Employee</h2>
+<table class="table" >
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">NAME</th>
+			<th scope="col">JOB</th>
+			<th scope="col">HIRE DATE</th>
+      <th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let employee of currentEmp.child_emp;">
+			<th scope="row">{{ employee.EMPNO }}</th>
+			<td>{{ employee.ENAME}}</td>
+			<td>{{ employee.JOB}}</td>
+			<td>{{ employee.HIREDATE|date}}</td>
+      <td>
+        <button class="btn btn-info" (click)="currentEmp=employee">More</button>
+      </td>
+		</tr>
+	</tbody>
+</table>
+</ng-container>
+
